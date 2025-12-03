@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Greenhouse Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-dark: #1e272e;
+            --text-light: #576574;
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: var(--text-dark);
+            background: linear-gradient(-45deg, #05c46b, #00d2d3, #54a0ff, #1dd1a1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            background-attachment: fixed;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #loginSection {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 360px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            animation: floatUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(241, 242, 246, 0.8);
+            font-family: inherit;
+            font-size: 14px;
+            transition: 0.3s;
+            box-sizing: border-box;
+            color: #333;
+        }
+        .input-group input:focus {
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            outline: none;
+            transform: scale(1.02);
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, #0fb9b1, #2bcbba);
+            border: none;
+            color: white;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(43, 203, 186, 0.4);
+        }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(43, 203, 186, 0.6); }
+
+        #dashboardSection {
+            padding: 40px 20px;
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px 30px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+        header h1 { margin: 0; font-size: 1.5rem; background: -webkit-linear-gradient(#009432, #006266); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .card h3 {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .big-val {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin: 10px 0 20px 0;
+            color: #2f3542;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.5); 
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .btn-toggle {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #dfe4ea;
+            color: #a4b0be;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-toggle.active {
+            color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        #btnPump.active { background: linear-gradient(45deg, #1289A7, #12CBC4); }
+        #btnLamp.active { background: linear-gradient(45deg, #FFC312, #F79F1F); }
+        #btnFan.active  { background: linear-gradient(45deg, #0652DD, #12CBC4); }
+
+        .btn-logout {
+            background: #ff6b6b; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4); transition: 0.2s;
+        }
+        .btn-logout:hover { background: #ee5253; transform: scale(1.05); }
+
+        .icon { font-size: 1.2rem; }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .big-val { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="loginSection">
+        <div class="login-card">
+            <div style="font-size: 4rem; margin-bottom: 10px;">🍃</div>
+            <h2 style="color:#2f3542;">Greenhouse Pro</h2>
+            <p style="color:#a4b0be; margin-bottom:30px;">Dashboard IoT Modern</p>
+            
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email Address">
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password">
+            </div>
+            
+            <button id="loginBtn" class="btn-main">MASUK DASHBOARD</button>
+        </div>
+    </section>
+
+    <section id="dashboardSection">
+        <header>
+            <div>
+                <h1>🌿 Smart Greenhouse</h1>
+                <span style="font-size: 0.85rem; color: #576574;">Live Monitoring System</span>
+            </div>
+            <button id="logoutBtn" class="btn-logout">Keluar</button>
+        </header>
+
+        <div class="grid-container">
+            <div class="card">
+                <h3><span class="icon">🌱</span> Kel. Tanah</h3>
+                <div id="soilVal" class="big-val">--%</div>
+                <span id="soilBadge" class="badge">Menunggu...</span>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🌡️</span> Suhu Udara</h3>
+                <div id="tempVal" class="big-val">--°C</div>
+                <span id="tempBadge" class="badge">Menunggu...</span>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">☁️</span> Kel. Udara</h3>
+                <div id="humVal" class="big-val">--%</div>
+                <span class="badge" style="color: #1e90ff;">Monitoring</span>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">☀️</span> Cahaya</h3>
+                <div id="lightVal" class="big-val">--%</div>
+                <span id="lightBadge" class="badge">Menunggu...</span>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🏃</span> Gerakan</h3>
+                <div id="motionVal" class="big-val" style="font-size: 2rem;">--</div>
+                <span id="motionBadge" class="badge">Aman</span>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🚿</span> Pompa Air</h3>
+                <p id="txtPump" style="color:#bdc3c7; font-weight:600; margin-bottom: 25px;">STATUS: OFF</p>
+                <button id="btnPump" class="btn-toggle" onclick="toggleDevice('pump')">HIDUPKAN</button>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">💡</span> Lampu Grow</h3>
+                <p id="txtLamp" style="color:#bdc3c7; font-weight:600; margin-bottom: 25px;">STATUS: OFF</p>
+                <button id="btnLamp" class="btn-toggle" onclick="toggleDevice('lamp')">HIDUPKAN</button>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">❄️</span> Kipas Pendingin</h3>
+                <p id="txtFan" style="color:#bdc3c7; font-weight:600; margin-bottom: 25px;">STATUS: OFF</p>
+                <button id="btnFan" class="btn-toggle" onclick="toggleDevice('fan')">HIDUPKAN</button>
+            </div>
+
+        </div>
+    </section>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOR8Pol_94oiLBf8iNt4hGprunuth3L_Y",
+            authDomain: "arduino-e51f2.firebaseapp.com",
+            databaseURL: "https://arduino-e51f2-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "arduino-e51f2",
+            storageBucket: "arduino-e51f2.firebasestorage.app",
+            messagingSenderId: "447757198128",
+            appId: "1:447757198128:web:50eb277f2e39e8fb60def5",
+            measurementId: "G-HC5PB75QVP"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        let state = { pump: false, lamp: false, fan: false };
+
+        document.getElementById("loginBtn").addEventListener("click", () => {
+            const email = document.getElementById("email").value;
+            const pass = document.getElementById("password").value;
+            signInWithEmailAndPassword(auth, email, pass).catch(e => alert("Error: " + e.message));
+        });
+
+        document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("loginSection").style.display = "none";
+                document.getElementById("dashboardSection").style.display = "block";
+                startSync();
+            } else {
+                document.getElementById("dashboardSection").style.display = "none";
+                document.getElementById("loginSection").style.display = "flex";
+            }
+        });
+
+        function startSync() {
+            onValue(ref(db, "greenhouse/sensors"), (snap) => updateSensors(snap.val() || {}));
+            onValue(ref(db, "greenhouse/controls"), (snap) => {
+                const c = snap.val() || {};
+                state.pump = c.pump || false;
+                state.lamp = c.lamp || false;
+                state.fan = c.fan || false;
+                updateControls();
+            });
+        }
+
+        function updateSensors(d) {
+            const setTxt = (id, val) => document.getElementById(id).innerText = val;
+            const setBadge = (id, txt, color) => {
+                const el = document.getElementById(id);
+                el.innerText = txt;
+                el.style.color = color;
+            };
+
+            if(d.soilMoisture !== undefined) {
+                setTxt("soilVal", d.soilMoisture + "%");
+                if(d.soilMoisture < 30) setBadge("soilBadge", "Kering ⚠️", "#ff4757");
+                else setBadge("soilBadge", "Subur 🌱", "#2ed573");
+            }
+            if(d.temperature !== undefined) {
+                setTxt("tempVal", d.temperature + "°C");
+                if(d.temperature > 32) setBadge("tempBadge", "Panas 🔥", "#ff4757");
+                else setBadge("tempBadge", "Ideal ❄️", "#2ed573");
+            }
+            if(d.humidity !== undefined) setTxt("humVal", d.humidity + "%");
+            if(d.lightLevel !== undefined) {
+                setTxt("lightVal", d.lightLevel + "%");
+                setBadge("lightBadge", d.lightLevel > 50 ? "Terang ☀️" : "Redup 🌑", "#ffa502");
+            }
+            if(d.motion !== undefined) {
+                setTxt("motionVal", d.motion ? "Terdeteksi" : "Nihil");
+                const el = document.getElementById("motionVal");
+                el.style.color = d.motion ? "#ff4757" : "#2f3542";
+                setBadge("motionBadge", d.motion ? "Waspada ⚠️" : "Aman ✔", d.motion ? "#ff4757" : "#2ed573");
+            }
+        }
+
+        function updateControls() {
+            updateBtn("btnPump", "txtPump", state.pump, "AKTIF 🌊");
+            updateBtn("btnLamp", "txtLamp", state.lamp, "AKTIF 💡");
+            updateBtn("btnFan",  "txtFan",  state.fan,  "AKTIF ❄️");
+        }
+
+        function updateBtn(btnId, txtId, isActive, activeText) {
+            const btn = document.getElementById(btnId);
+            const txt = document.getElementById(txtId);
+            if(isActive) {
+                btn.classList.add("active");
+                btn.innerText = "MATIKAN";
+                txt.innerText = activeText;
+                txt.style.color = "#2f3542";
+            } else {
+                btn.classList.remove("active");
+                btn.innerText = "HIDUPKAN";
+                txt.innerText = "STATUS: OFF";
+                txt.style.color = "#bdc3c7";
+            }
+        }
+
+        window.toggleDevice = function(dev) {
+            let path = dev;
+            let val = !state[dev];
+            set(ref(db, `greenhouse/controls/${path}`), val);
+        }
+    </script>
+</body>
+</html>
