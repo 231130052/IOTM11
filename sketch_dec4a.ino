@@ -6,8 +6,8 @@ const char* password = "admin123";
 
 #define API_KEY "AIzaSyDOR8Pol_94oiLBf8iNt4hGprunuth3L_Y"  
 #define DATABASE_URL "https://arduino-e51f2-default-rtdb.asia-southeast1.firebasedatabase.app"
-#define USER_EMAIL "sgts198@gmail.com" 
-#define USER_PASSWORD "Hb2qw9843ehgnvQW9FVPQ9EWD"     
+#define USER_EMAIL "latihanm11@gmail.com" 
+#define USER_PASSWORD "SAYASUKAIOT"     
 
 #define dht 23
 #define ldr 19
